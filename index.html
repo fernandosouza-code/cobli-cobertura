@@ -5,12 +5,13 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 <title>Cobli — Cobertura de Técnicos</title>
 <link href="https://fonts.googleapis.com/css2?family=DM+Mono:wght@400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
 <style>
 :root{--blue-dark:#07074E;--blue:#001BB8;--blue-light:rgba(0,27,184,0.07);--blue-border:rgba(0,27,184,0.2);--red:#FF4633;--red-light:rgba(255,70,51,0.09);--teal:#00AE97;--teal-light:rgba(0,174,151,0.1);--teal-border:rgba(0,174,151,0.3);--bg:#f4f5f9;--white:#fff;--border:rgba(7,7,78,0.09);--border-mid:rgba(7,7,78,0.16);--text:#07074E;--text-sec:rgba(7,7,78,0.52);--text-muted:rgba(7,7,78,0.32);--radius:10px;--radius-lg:16px}
 *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
 body{background:var(--bg);color:var(--text);font-family:'DM Sans',sans-serif;font-weight:300;min-height:100vh;font-size:15px}
 body::before{content:'';position:fixed;inset:0;background-image:radial-gradient(circle,rgba(0,27,184,0.06) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
-.page{position:relative;z-index:1;max-width:860px;margin:0 auto;padding:3rem 1.5rem 6rem}
+.page{position:relative;z-index:1;max-width:900px;margin:0 auto;padding:3rem 1.5rem 6rem}
 header{margin-bottom:2.5rem}
 .logo-row{display:flex;align-items:center;gap:10px;margin-bottom:2rem}
 .logo-mark{width:30px;height:30px;background:var(--blue);border-radius:8px;display:flex;align-items:center;justify-content:center}
@@ -44,6 +45,17 @@ button:active{transform:scale(.97)}
 .hint{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 .hint b{color:var(--text-sec);font-weight:500}
 #results{margin-top:1.5rem}
+
+/* Mapa */
+#map-wrap{display:none;margin-top:1.5rem;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(7,7,78,.05)}
+#map{height:420px;width:100%}
+.map-legend{background:var(--white);padding:10px 14px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);flex-wrap:wrap}
+.legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-sec)}
+.legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.legend-dot.client{background:var(--blue)}
+.legend-dot.inside{background:var(--teal)}
+.legend-dot.outside{background:var(--red)}
+
 .summary-bar{display:flex;align-items:center;margin-bottom:14px;padding:12px 16px;background:var(--blue-dark);border-radius:var(--radius);flex-wrap:wrap;gap:10px}
 .summary-item{font-size:13px;color:rgba(255,255,255,.55)}
 .summary-item b{font-weight:700}
@@ -51,8 +63,8 @@ button:active{transform:scale(.97)}
 .summary-item.miss b{color:var(--red)}
 .summary-meta{margin-left:auto;font-size:11px;color:rgba(255,255,255,.28);font-family:'DM Mono',monospace}
 .section-sep{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin:14px 0 8px}
-.result-item{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:6px;transition:box-shadow .15s;gap:12px}
-.result-item:hover{box-shadow:0 2px 8px rgba(7,7,78,.07)}
+.result-item{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:6px;transition:box-shadow .15s;gap:12px;cursor:pointer}
+.result-item:hover{box-shadow:0 2px 8px rgba(7,7,78,.1)}
 .result-item.inside{border-left:3px solid var(--teal)}
 .result-item.outside{border-left:3px solid rgba(7,7,78,.1)}
 .result-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
@@ -107,7 +119,7 @@ button:active{transform:scale(.97)}
       </div>
       <label class="field-label">CEP ou cidade do cliente</label>
       <div class="search-row">
-        <input type="text" id="addr-input" placeholder="Ex: 06824-060  ou  Embu das Artes, SP"/>
+        <input type="text" id="addr-input" placeholder="Ex: 04547-100  ou  São Paulo, SP"/>
         <button onclick="buscarUm()">Buscar</button>
       </div>
       <p class="hint">Digite o <b>CEP</b> (recomendado) ou <b>cidade e estado</b>. Ex: <b>04547-100</b> ou <b>São Paulo, SP</b></p>
@@ -132,9 +144,20 @@ button:active{transform:scale(.97)}
     </div>
   </div>
 
+  <!-- Mapa -->
+  <div id="map-wrap">
+    <div id="map"></div>
+    <div class="map-legend">
+      <div class="legend-item"><div class="legend-dot client"></div>Cliente</div>
+      <div class="legend-item"><div class="legend-dot inside"></div>Dentro do raio</div>
+      <div class="legend-item"><div class="legend-dot outside"></div>Fora do raio</div>
+    </div>
+  </div>
+
   <div id="results"></div>
 </div>
 
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
 // ── Coordenadas pré-calculadas por cidade ──
 const COORDS = {
@@ -180,7 +203,7 @@ const COORDS = {
   "fortaleza ce":[-3.7172,-38.5431],"aquiraz ce":[-3.8978,-38.3928],"russas ce":[-4.9378,-37.9728],
   "sao luis ma":[-2.5297,-44.3028],"são luís ma":[-2.5297,-44.3028],"imperatriz ma":[-5.5228,-47.4928],
   "pinheiro ma":[-2.5178,-45.0828],"balsas ma":[-7.5328,-46.0378],"aracaju se":[-10.9111,-37.0717],
-  "aracaju se":[-10.9111,-37.0717],"joao pessoa pb":[-7.1153,-34.8641],"joão pessoa pb":[-7.1153,-34.8641],
+  "joao pessoa pb":[-7.1153,-34.8641],"joão pessoa pb":[-7.1153,-34.8641],
   "arapiraca al":[-9.7528,-36.6628],"picos pi":[-7.0778,-41.4678],"boa vista rr":[2.8197,-60.6733],
   "macapa ap":[0.0356,-51.0705],"macapá ap":[0.0356,-51.0705],"ananindeua pa":[-1.3658,-48.3728],
   "castanhal pa":[-1.2978,-47.9228],"parauapebas pa":[-6.0678,-49.9028],"parauapebás pa":[-6.0678,-49.9028],
@@ -197,7 +220,6 @@ const COORDS = {
   "londrina pr":[-23.3045,-51.1696],"guarapuava pr":[-25.3936,-51.4578]
 };
 
-// ── Prestadores pré-carregados ──
 const PRESTADORES = [
   {n:"ALEX INSTALAÇÕES",c:"guarulhos sp"},{n:"BORGES AUTO SOM",c:"campinas sp"},
   {n:"GBISAT",c:"iuiu ba"},{n:"RASTREK BAHIA",c:"feira de santana ba"},
@@ -267,12 +289,66 @@ const PRESTADORES = [
   {n:"G-TRACK-BALSAS",c:"balsas ma"}
 ];
 
-// Enriquecer com coordenadas
-PRESTADORES.forEach(p => {
-  const coord = COORDS[p.c];
-  if (coord) { p.lat = coord[0]; p.lon = coord[1]; }
-});
+PRESTADORES.forEach(p => { const c = COORDS[p.c]; if(c){p.lat=c[0];p.lon=c[1];} });
 
+// ── Mapa Leaflet ──
+let map = null, circleLayer = null, markersLayer = null, clientMarker = null;
+
+function initMap(clientLat, clientLon, raio, results) {
+  const wrap = document.getElementById('map-wrap');
+  wrap.style.display = 'block';
+
+  if (!map) {
+    map = L.map('map').setView([clientLat, clientLon], 7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+      attribution: '© OpenStreetMap contributors', maxZoom: 18
+    }).addTo(map);
+  } else {
+    map.setView([clientLat, clientLon], 7);
+    if (circleLayer) map.removeLayer(circleLayer);
+    if (markersLayer) markersLayer.clearLayers();
+    if (clientMarker) map.removeLayer(clientMarker);
+  }
+
+  // Círculo do raio
+  circleLayer = L.circle([clientLat, clientLon], {
+    radius: raio * 1000,
+    color: '#001BB8', fillColor: '#001BB8', fillOpacity: 0.06, weight: 1.5
+  }).addTo(map);
+
+  // Marcador do cliente
+  const clientIcon = L.divIcon({
+    className: '',
+    html: `<div style="width:14px;height:14px;background:#001BB8;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px #001BB8"></div>`,
+    iconSize: [14,14], iconAnchor: [7,7]
+  });
+  clientMarker = L.marker([clientLat, clientLon], {icon: clientIcon})
+    .bindPopup('<b>Cliente</b>').addTo(map);
+
+  // Marcadores dos prestadores
+  if (!markersLayer) markersLayer = L.layerGroup().addTo(map);
+
+  results.forEach(r => {
+    if (!r.lat || !r.lon) return;
+    const inside = r.dist !== null && r.dist <= raio;
+    const color = inside ? '#00AE97' : '#FF4633';
+    const icon = L.divIcon({
+      className: '',
+      html: `<div style="width:10px;height:10px;background:${color};border-radius:50%;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3)"></div>`,
+      iconSize: [10,10], iconAnchor: [5,5]
+    });
+    L.marker([r.lat, r.lon], {icon})
+      .bindPopup(`<b>${r.name}</b><br>${r.addr}<br><span style="color:${color};font-weight:600">${r.dist !== null ? r.dist+'km' : 'sem dados'}</span>`)
+      .addTo(markersLayer);
+  });
+
+  // Fit bounds
+  const bounds = circleLayer.getBounds();
+  map.fitBounds(bounds, {padding: [20,20]});
+  setTimeout(() => map.invalidateSize(), 100);
+}
+
+// ── Geo ──
 function haversine(lat1,lon1,lat2,lon2) {
   const R=6371,r=Math.PI/180;
   const dLat=(lat2-lat1)*r,dLon=(lon2-lon1)*r;
@@ -284,16 +360,10 @@ function setStatus(msg) {
   document.getElementById('results').innerHTML=`<div class="status-msg"><div class="spinner"></div>${msg}</div>`;
 }
 
-// ── Geocodificação do cliente: ViaCEP → coordenadas da cidade ──
-function extrairCEP(texto) {
-  const m = texto.replace(/\D/g,'');
-  return m.length === 8 ? m : null;
-}
+function extrairCEP(t) { const m=t.replace(/\D/g,''); return m.length===8?m:null; }
 
 async function geocodeCliente(input) {
   const texto = input.trim();
-
-  // 1. Tenta ViaCEP se for CEP
   const cep = extrairCEP(texto);
   if (cep) {
     try {
@@ -303,43 +373,19 @@ async function geocodeCliente(input) {
         const chave = `${d.localidade} ${d.uf}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
         const coord = COORDS[chave] || COORDS[`${d.localidade.toLowerCase()} ${d.uf.toLowerCase()}`];
         if (coord) return { lat: coord[0], lon: coord[1], label: `${d.localidade} - ${d.uf}` };
-        // Se não tem no dicionário, usa IBGE para coordenadas
-        const ibge = d.ibge;
-        if (ibge) {
-          const r2 = await fetch(`https://servicodados.ibge.gov.br/api/v1/localidades/municipios/${ibge}`);
-          const m = await r2.json();
-          if (m && m.microrregiao) {
-            // fallback: busca pelo nome normalizado
-            const nomeLimpo = d.localidade.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'') + ' ' + d.uf.toLowerCase();
-            const c2 = COORDS[nomeLimpo];
-            if (c2) return { lat: c2[0], lon: c2[1], label: `${d.localidade} - ${d.uf}` };
-          }
-        }
-        // Tenta Nominatim como último recurso
-        return await geocodeNominatim(`${d.localidade}, ${d.uf}, Brasil`);
       }
-    } catch(e) { console.warn('ViaCEP erro:', e); }
+    } catch(e) {}
   }
-
-  // 2. Tenta pelo dicionário interno (cidade + estado)
   const normalizado = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[,\-\/]/g,' ').replace(/\s+/g,' ').trim();
-  for (const [k, v] of Object.entries(COORDS)) {
-    if (normalizado.includes(k) || k.includes(normalizado)) {
-      return { lat: v[0], lon: v[1], label: texto };
-    }
+  for (const [k,v] of Object.entries(COORDS)) {
+    if (normalizado.includes(k) || k.includes(normalizado)) return { lat: v[0], lon: v[1], label: texto };
   }
-
-  // 3. Nominatim como fallback
-  return await geocodeNominatim(texto + ', Brasil');
-}
-
-async function geocodeNominatim(query) {
   try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(query)}&format=json&limit=1&accept-language=pt-BR&countrycodes=br`;
-    const r = await fetch(url, { headers: {'User-Agent':'cobli-cobertura/1.0'} });
+    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(texto+', Brasil')}&format=json&limit=1&accept-language=pt-BR&countrycodes=br`;
+    const r = await fetch(url, {headers:{'User-Agent':'cobli-cobertura/1.0'}});
     const d = await r.json();
-    if (d.length) return { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon), label: query };
-  } catch(e) { console.warn('Nominatim erro:', e); }
+    if (d.length) return { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon), label: texto };
+  } catch(e) {}
   return null;
 }
 
@@ -352,16 +398,18 @@ async function buscarUm() {
   const geo = await geocodeCliente(input);
 
   if (!geo) {
-    document.getElementById('results').innerHTML = `<div class="empty">Endereço não encontrado.<small>Tente digitar só o CEP (ex: <b>06824-060</b>) ou a cidade com estado (ex: <b>Embu das Artes, SP</b>)</small></div>`;
+    document.getElementById('results').innerHTML = `<div class="empty">Endereço não encontrado.<small>Tente digitar só o CEP (ex: <b>04547-100</b>) ou cidade com estado (ex: <b>São Paulo, SP</b>)</small></div>`;
     return;
   }
 
   const results = PRESTADORES.map(p => ({
     name: p.n,
-    addr: p.c.split(' ').map(w => w.charAt(0).toUpperCase()+w.slice(1)).join(' '),
+    addr: p.c.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' '),
+    lat: p.lat, lon: p.lon,
     dist: (p.lat && p.lon) ? haversine(geo.lat, geo.lon, p.lat, p.lon) : null
   }));
 
+  initMap(geo.lat, geo.lon, raio, results);
   renderResults(geo.label || input, results, raio);
 }
 
@@ -379,7 +427,7 @@ function renderResults(clientLabel, results, raio) {
   if (inside.length) {
     html += `<div class="section-sep">Dentro do raio — ${inside.length} prestador(es)</div>`;
     inside.forEach(r => {
-      html += `<div class="result-item inside">
+      html += `<div class="result-item inside" onclick="flyTo(${r.lat},${r.lon},'${r.name.replace(/'/g,"\\'")}')">
         <div class="result-info"><div class="result-name">${r.name}</div><div class="result-addr">${r.addr}</div></div>
         <div class="dist-badge ok">${r.dist}km</div>
       </div>`;
@@ -391,7 +439,7 @@ function renderResults(clientLabel, results, raio) {
   if (outside.length) {
     html += `<div class="section-sep">Mais próximos fora do raio</div>`;
     outside.slice(0,8).forEach(r => {
-      html += `<div class="result-item outside">
+      html += `<div class="result-item outside" onclick="flyTo(${r.lat},${r.lon},'${r.name.replace(/'/g,"\\'")}')">
         <div class="result-info"><div class="result-name">${r.name}</div><div class="result-addr">${r.addr}</div></div>
         ${r.dist===null?'<div class="dist-badge far">sem dados</div>':`<div class="dist-badge far">${r.dist}km</div>`}
       </div>`;
@@ -402,6 +450,12 @@ function renderResults(clientLabel, results, raio) {
   html += `<div class="export-row"><button class="btn-export" onclick="exportCSV()">Exportar resultado CSV</button></div>`;
   document.getElementById('results').innerHTML = html;
   window._lastResults = results; window._lastClient = clientLabel; window._lastRaio = raio;
+}
+
+function flyTo(lat, lon, name) {
+  if (!map || !lat || !lon) return;
+  document.getElementById('map-wrap').scrollIntoView({behavior:'smooth', block:'center'});
+  setTimeout(() => { map.flyTo([lat, lon], 12, {duration: 1}); }, 300);
 }
 
 // ── Busca em lote ──
@@ -439,7 +493,6 @@ async function buscarLote() {
   const raio = parseInt(document.getElementById('raio').value);
   const clientes = state.cli.rows;
   const loteResults = [];
-
   for (let i = 0; i < clientes.length; i++) {
     setStatus(`Geocodificando clientes… ${i+1}/${clientes.length}`);
     const c = clientes[i];
@@ -455,46 +508,25 @@ async function buscarLote() {
       }
     }
     loteResults.push({
-      cliente: c[state.cliCols.name]||'—',
-      endereco: c[state.cliCols.addr]||'—',
-      dentroRaio: dentro.length,
-      maisProximo: closest||'—',
+      cliente: c[state.cliCols.name]||'—', endereco: c[state.cliCols.addr]||'—',
+      dentroRaio: dentro.length, maisProximo: closest||'—',
       distMaisProximo: closestDist===Infinity ? null : closestDist
     });
   }
-
   const comCob = loteResults.filter(r => r.dentroRaio>0);
   const semCob = loteResults.filter(r => r.dentroRaio===0);
-
   let html = `<div class="summary-bar">
     <div class="summary-item hit"><b>${comCob.length}</b> clientes com cobertura</div>
     <div class="summary-item miss"><b>${semCob.length}</b> sem cobertura</div>
     <div class="summary-meta">raio ${raio}km</div>
   </div>`;
-
   if (comCob.length) {
     html += `<div class="section-sep">Com cobertura — ${comCob.length}</div>`;
-    comCob.forEach(r => {
-      html += `<div class="result-item inside">
-        <div class="result-info">
-          <div class="result-name">${r.cliente}</div>
-          <div class="result-addr">${r.endereco} · <span style="color:var(--teal)">${r.dentroRaio} prestador(es)</span> · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)</div>
-        </div>
-        <div class="dist-badge ok">${r.distMaisProximo}km</div>
-      </div>`;
-    });
+    comCob.forEach(r => { html += `<div class="result-item inside"><div class="result-info"><div class="result-name">${r.cliente}</div><div class="result-addr">${r.endereco} · <span style="color:var(--teal)">${r.dentroRaio} prestador(es)</span> · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)</div></div><div class="dist-badge ok">${r.distMaisProximo}km</div></div>`; });
   }
   if (semCob.length) {
     html += `<div class="section-sep">Sem cobertura — ${semCob.length}</div>`;
-    semCob.forEach(r => {
-      html += `<div class="result-item outside">
-        <div class="result-info">
-          <div class="result-name">${r.cliente}</div>
-          <div class="result-addr">${r.endereco}${r.distMaisProximo ? ` · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)` : ''}</div>
-        </div>
-        <div class="dist-badge far">sem cobertura</div>
-      </div>`;
-    });
+    semCob.forEach(r => { html += `<div class="result-item outside"><div class="result-info"><div class="result-name">${r.cliente}</div><div class="result-addr">${r.endereco}${r.distMaisProximo ? ` · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)` : ''}</div></div><div class="dist-badge far">sem cobertura</div></div>`; });
   }
   html += `<div class="export-row"><button class="btn-export" onclick="exportLote()">Exportar resultado CSV</button></div>`;
   document.getElementById('results').innerHTML = html;
