@@ -40,22 +40,28 @@ input[type=text]:focus{outline:none;border-color:var(--blue);box-shadow:0 0 0 3p
 button{background:var(--blue);color:#fff;border:none;border-radius:var(--radius);font-size:13px;font-weight:600;font-family:'DM Sans',sans-serif;padding:0 20px;cursor:pointer;transition:opacity .15s,transform .1s;white-space:nowrap;letter-spacing:.01em;height:42px}
 button:hover{opacity:.88}
 button:active{transform:scale(.97)}
-.btn-lote{width:100%;background:transparent;border:1.5px solid var(--blue-border);color:var(--blue);margin-top:10px}
-.btn-lote:hover{background:var(--blue-light);opacity:1}
 .hint{font-size:12px;color:var(--text-muted);margin-top:8px;line-height:1.5}
 .hint b{color:var(--text-sec);font-weight:500}
-#results{margin-top:1.5rem}
+
+/* Filtros IQP */
+.filter-row{display:flex;gap:8px;margin-top:14px;flex-wrap:wrap}
+.filter-btn{height:32px;padding:0 12px;font-size:12px;font-weight:600;border-radius:20px;cursor:pointer;border:1.5px solid var(--border-mid);background:var(--white);color:var(--text-sec);transition:all .15s;font-family:'DM Sans',sans-serif}
+.filter-btn:hover{border-color:var(--blue-border);color:var(--blue)}
+.filter-btn.active{background:var(--blue-dark);border-color:var(--blue-dark);color:#fff}
+.filter-btn.f-diamante.active{background:#1a1060;border-color:#1a1060}
+.filter-btn.f-ouro.active{background:#b8860b;border-color:#b8860b}
+.filter-btn.f-prata.active{background:#607080;border-color:#607080}
+.filter-btn.f-bronze.active{background:#8B5E3C;border-color:#8B5E3C}
 
 /* Mapa */
 #map-wrap{display:none;margin-top:1.5rem;border-radius:var(--radius-lg);overflow:hidden;border:1px solid var(--border);box-shadow:0 1px 4px rgba(7,7,78,.05)}
-#map{height:420px;width:100%}
-.map-legend{background:var(--white);padding:10px 14px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);flex-wrap:wrap}
+#map{height:440px;width:100%}
+.map-legend{background:var(--white);padding:10px 16px;display:flex;gap:16px;align-items:center;border-top:1px solid var(--border);flex-wrap:wrap}
 .legend-item{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--text-sec)}
 .legend-dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
-.legend-dot.client{background:var(--blue)}
-.legend-dot.inside{background:var(--teal)}
-.legend-dot.outside{background:var(--red)}
 
+/* Results */
+#results{margin-top:1.5rem}
 .summary-bar{display:flex;align-items:center;margin-bottom:14px;padding:12px 16px;background:var(--blue-dark);border-radius:var(--radius);flex-wrap:wrap;gap:10px}
 .summary-item{font-size:13px;color:rgba(255,255,255,.55)}
 .summary-item b{font-weight:700}
@@ -63,16 +69,23 @@ button:active{transform:scale(.97)}
 .summary-item.miss b{color:var(--red)}
 .summary-meta{margin-left:auto;font-size:11px;color:rgba(255,255,255,.28);font-family:'DM Mono',monospace}
 .section-sep{font-size:11px;font-weight:600;text-transform:uppercase;letter-spacing:.07em;color:var(--text-muted);margin:14px 0 8px}
-.result-item{display:flex;align-items:center;justify-content:space-between;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:6px;transition:box-shadow .15s;gap:12px;cursor:pointer}
+.result-item{display:flex;align-items:center;background:var(--white);border:1px solid var(--border);border-radius:var(--radius);padding:12px 16px;margin-bottom:6px;transition:box-shadow .15s;gap:12px;cursor:pointer}
 .result-item:hover{box-shadow:0 2px 8px rgba(7,7,78,.1)}
 .result-item.inside{border-left:3px solid var(--teal)}
 .result-item.outside{border-left:3px solid rgba(7,7,78,.1)}
-.result-info{display:flex;flex-direction:column;gap:2px;min-width:0;flex:1}
+.result-info{display:flex;flex-direction:column;gap:3px;min-width:0;flex:1}
 .result-name{font-size:14px;font-weight:500;color:var(--blue-dark);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.result-addr{font-size:12px;color:var(--text-sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
-.dist-badge{font-size:12px;font-weight:600;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:20px;white-space:nowrap;flex-shrink:0}
+.result-addr{font-size:12px;color:var(--text-sec)}
+.result-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.dist-badge{font-size:12px;font-weight:600;font-family:'DM Mono',monospace;padding:4px 10px;border-radius:20px;white-space:nowrap}
 .dist-badge.ok{background:var(--teal-light);color:var(--teal);border:1px solid var(--teal-border)}
 .dist-badge.far{background:rgba(7,7,78,.04);color:var(--text-muted);border:1px solid var(--border)}
+.iqp-badge{font-size:11px;font-weight:600;padding:2px 8px;border-radius:20px;white-space:nowrap}
+.iqp-diamante{background:rgba(100,80,200,0.12);color:#3d2fa0;border:1px solid rgba(100,80,200,0.2)}
+.iqp-ouro{background:rgba(184,134,11,0.1);color:#8a6200;border:1px solid rgba(184,134,11,0.2)}
+.iqp-prata{background:rgba(96,112,128,0.1);color:#455060;border:1px solid rgba(96,112,128,0.2)}
+.iqp-bronze{background:rgba(139,94,60,0.1);color:#6b3c18;border:1px solid rgba(139,94,60,0.2)}
+.iqp-none{background:rgba(7,7,78,.04);color:var(--text-muted);border:1px solid var(--border)}
 .empty{text-align:center;padding:2.5rem;color:var(--text-sec);font-size:14px;background:var(--white);border:1px dashed var(--border-mid);border-radius:var(--radius-lg)}
 .empty small{display:block;margin-top:6px;color:var(--text-muted);font-size:12px}
 .status-msg{font-size:13px;color:var(--text-sec);font-family:'DM Mono',monospace;padding:12px 0;display:flex;align-items:center;gap:8px}
@@ -81,16 +94,6 @@ button:active{transform:scale(.97)}
 .export-row{margin-top:12px;text-align:right}
 .btn-export{background:transparent;border:1px solid var(--blue-border);color:var(--blue);font-size:12px;padding:6px 14px;border-radius:var(--radius);height:auto}
 .btn-export:hover{background:var(--blue-light);opacity:1}
-.upload-zone{border:1.5px dashed var(--blue-border);border-radius:var(--radius);padding:1.1rem;text-align:center;cursor:pointer;position:relative;background:var(--blue-light);transition:all .2s}
-.upload-zone:hover{border-color:var(--blue);background:rgba(0,27,184,.1)}
-.upload-zone.loaded{border-style:solid;border-color:var(--teal);background:var(--teal-light)}
-.upload-zone input[type=file]{position:absolute;inset:0;opacity:0;cursor:pointer;width:100%;height:100%}
-.upload-icon{font-size:20px;margin-bottom:4px}
-.upload-label{font-size:13px;color:var(--text-sec)}
-.upload-label b{color:var(--blue);font-weight:600}
-.upload-status{font-size:12px;font-family:'DM Mono',monospace;color:var(--teal);margin-top:4px;font-weight:500;display:none}
-.info-box{background:var(--blue-light);border:1px solid var(--blue-border);border-radius:var(--radius);padding:10px 14px;font-size:13px;color:var(--blue-dark);margin-top:10px;display:none}
-.info-box b{font-weight:600;color:var(--blue)}
 </style>
 </head>
 <body>
@@ -101,7 +104,7 @@ button:active{transform:scale(.97)}
       <div class="logo-text">Cobli <span>/ Supply Chain</span></div>
     </div>
     <h1>Cobertura de<br><b>técnicos</b></h1>
-    <p class="header-sub">Verificação instantânea de cobertura da rede credenciada. Os <b>128 prestadores ativos</b> já estão pré-carregados.</p>
+    <p class="header-sub">Verificação de cobertura com <b>nota IQP</b> integrada. 128 prestadores ativos pré-carregados.</p>
   </header>
 
   <div class="steps">
@@ -123,34 +126,25 @@ button:active{transform:scale(.97)}
         <button onclick="buscarUm()">Buscar</button>
       </div>
       <p class="hint">Digite o <b>CEP</b> (recomendado) ou <b>cidade e estado</b>. Ex: <b>04547-100</b> ou <b>São Paulo, SP</b></p>
-    </div>
 
-    <div class="card">
-      <div class="card-head">
-        <div class="step-num">2</div>
-        <div class="card-title">Busca em lote <span style="color:var(--text-muted);font-weight:300">(opcional)</span></div>
-        <div class="card-sub">CSV</div>
-      </div>
-      <div class="upload-zone" id="zone-cli" onclick="document.getElementById('file-cli').click()">
-        <input type="file" id="file-cli" accept=".csv" style="display:none" onchange="handleFileCli(this)"/>
-        <div class="upload-icon">🏢</div>
-        <div class="upload-label">Arraste o CSV de clientes ou <b>clique para selecionar</b></div>
-        <div class="upload-status" id="status-cli"></div>
-      </div>
-      <div class="info-box" id="info-cli"></div>
-      <div id="btn-lote-wrap" style="display:none;">
-        <button class="btn-lote" onclick="buscarLote()">Buscar para todos os clientes da planilha</button>
+      <label class="field-label" style="margin-top:16px;">Filtrar por nota IQP</label>
+      <div class="filter-row">
+        <button class="filter-btn active" data-filter="todos" onclick="setFilter('todos',this)">Todos</button>
+        <button class="filter-btn f-diamante" data-filter="diamante" onclick="setFilter('diamante',this)">💎 Diamante</button>
+        <button class="filter-btn f-ouro" data-filter="ouro" onclick="setFilter('ouro',this)">🥇 Ouro</button>
+        <button class="filter-btn f-prata" data-filter="prata" onclick="setFilter('prata',this)">🥈 Prata</button>
+        <button class="filter-btn f-bronze" data-filter="bronze" onclick="setFilter('bronze',this)">🥉 Bronze</button>
       </div>
     </div>
   </div>
 
-  <!-- Mapa -->
   <div id="map-wrap">
     <div id="map"></div>
     <div class="map-legend">
-      <div class="legend-item"><div class="legend-dot client"></div>Cliente</div>
-      <div class="legend-item"><div class="legend-dot inside"></div>Dentro do raio</div>
-      <div class="legend-item"><div class="legend-dot outside"></div>Fora do raio</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#001BB8"></div>Cliente</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#00AE97"></div>Dentro do raio</div>
+      <div class="legend-item"><div class="legend-dot" style="background:#FF4633"></div>Fora do raio</div>
+      <div class="legend-item" style="margin-left:auto;font-size:11px;color:var(--text-muted)">Clique nos pontos para detalhes</div>
     </div>
   </div>
 
@@ -159,393 +153,174 @@ button:active{transform:scale(.97)}
 
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 <script>
-// ── Coordenadas pré-calculadas por cidade ──
-const COORDS = {
-  "guarulhos sp":[-23.4637,-46.5333],"campinas sp":[-22.9056,-47.0608],"presidente prudente sp":[-22.1256,-51.3889],
-  "marília sp":[-22.2139,-49.9458],"votorantim sp":[-23.5486,-47.4381],"bauru sp":[-22.3246,-49.0661],
-  "ribeirao preto sp":[-21.1775,-47.8103],"ribeirão preto sp":[-21.1775,-47.8103],"cotia sp":[-23.6036,-46.9192],
-  "rio pardo sp":[-23.7,-49.0667],"sao paulo sp":[-23.5505,-46.6333],"são paulo sp":[-23.5505,-46.6333],
-  "praia grande sp":[-24.0056,-46.4028],"braganca paulista sp":[-22.9519,-46.5428],"bragança paulista sp":[-22.9519,-46.5428],
-  "hortolandia sp":[-22.8578,-47.2206],"hortolândia sp":[-22.8578,-47.2206],"araras sp":[-22.3583,-47.3836],
-  "avare sp":[-23.0994,-48.9258],"avaré sp":[-23.0994,-48.9258],"boituva sp":[-23.2842,-47.6736],
-  "santa barbara d'oeste sp":[-22.7542,-47.4142],"são vicente sp":[-23.9608,-46.3886],"sao vicente sp":[-23.9608,-46.3886],
-  "ribeirao grande sp":[-24.1,-48.3667],"itapevi sp":[-23.5486,-47.0692],"araçatuba sp":[-21.2089,-50.4428],
-  "aracatuba sp":[-21.2089,-50.4428],"osasco sp":[-23.5325,-46.7919],"são josé dos campos sp":[-23.1794,-45.8869],
-  "sao jose dos campos sp":[-23.1794,-45.8869],"carapicuíba sp":[-23.5228,-46.8358],"carapicuiba sp":[-23.5228,-46.8358],
-  "embu das artes sp":[-23.6497,-46.8519],"embu sp":[-23.6497,-46.8519],
-  "iuiu ba":[-14.65,-43.65],"feira de santana ba":[-12.2664,-38.9663],"eunapolis ba":[-16.3778,-39.5786],
-  "eunapólis ba":[-16.3778,-39.5786],"itabuna ba":[-14.7886,-39.2783],"lapao ba":[-11.3833,-41.8333],
-  "lapão ba":[-11.3833,-41.8333],"luis eduardo magalhaes ba":[-12.0964,-45.7939],"paulo afonso ba":[-9.4086,-38.2147],
-  "porto seguro ba":[-16.4292,-39.0647],"santo antonio de jesus ba":[-12.9739,-39.2628],
-  "santo antônio de jesus ba":[-12.9739,-39.2628],"macaubas ba":[-13.0208,-42.6953],"macaúbas ba":[-13.0208,-42.6953],
-  "salvador ba":[-12.9711,-38.5108],"camaçari ba":[-12.6997,-38.3239],"camacari ba":[-12.6997,-38.3239],
-  "brumado ba":[-14.2039,-41.6647],"belo horizonte mg":[-19.9167,-43.9345],"uberlandia mg":[-18.9186,-48.2772],
-  "uberlândia mg":[-18.9186,-48.2772],"uberaba mg":[-19.7478,-47.9317],"contagem mg":[-19.9317,-44.0536],
-  "governador valadares mg":[-18.8511,-41.9494],"juiz de fora mg":[-21.7642,-43.3503],
-  "patos de minas mg":[-18.5789,-46.5178],"teofilo otoni mg":[-17.8578,-41.5053],"teófilo otoni mg":[-17.8578,-41.5053],
-  "montes claros mg":[-16.7286,-43.8628],"varginha mg":[-21.5508,-45.4303],
-  "rio de janeiro rj":[-22.9068,-43.1729],"nova friburgo rj":[-22.2817,-42.5311],
-  "campos dos goytacazes rj":[-21.7553,-41.3242],"porto alegre rs":[-30.0331,-51.23],
-  "passo fundo rs":[-28.2628,-52.4069],"cangucu rs":[-31.3978,-52.6761],"canguçu rs":[-31.3978,-52.6761],
-  "santiago rs":[-29.1911,-54.8681],"tres de maio rs":[-27.7678,-54.2428],"três de maio rs":[-27.7678,-54.2428],
-  "goiania go":[-16.6869,-49.2648],"goiânia go":[-16.6869,-49.2648],"rio verde go":[-17.7978,-50.9278],
-  "cidade ocidental go":[-16.0678,-47.9128],"goianesia go":[-15.3178,-49.1128],"goianésia go":[-15.3178,-49.1128],
-  "mozarlandia go":[-14.7428,-50.5778],"mozarlândia go":[-14.7428,-50.5778],
-  "campo grande ms":[-20.4428,-54.6461],"ponta pora ms":[-22.5328,-55.7261],"ponta porã ms":[-22.5328,-55.7261],
-  "paranaiba ms":[-19.6778,-51.1928],"paranaíba ms":[-19.6778,-51.1928],"manaus am":[-3.1019,-60.025],
-  "cuiaba mt":[-15.5961,-56.0967],"cuiabá mt":[-15.5961,-56.0967],"sinop mt":[-11.8628,-55.5028],
-  "rondonopolis mt":[-16.4678,-54.6361],"rondonópolis mt":[-16.4678,-54.6361],"confresa mt":[-10.6378,-51.5628],
-  "porto velho ro":[-8.7619,-63.9039],"vilhena ro":[-12.7378,-60.1428],"recife pe":[-8.0539,-34.8811],
-  "jaboatao dos guararapes pe":[-8.1128,-35.0028],"jaboatão dos guararapes pe":[-8.1128,-35.0028],
-  "gravata pe":[-8.2028,-35.5628],"gravatá pe":[-8.2028,-35.5628],"serra talhada pe":[-7.9878,-38.2928],
-  "petrolina pe":[-9.3878,-40.5028],"natal rn":[-5.7928,-35.2128],"mossoro rn":[-5.1878,-37.3428],
-  "mossoró rn":[-5.1878,-37.3428],"macaiba rn":[-5.8578,-35.3578],"macaíba rn":[-5.8578,-35.3578],
-  "fortaleza ce":[-3.7172,-38.5431],"aquiraz ce":[-3.8978,-38.3928],"russas ce":[-4.9378,-37.9728],
-  "sao luis ma":[-2.5297,-44.3028],"são luís ma":[-2.5297,-44.3028],"imperatriz ma":[-5.5228,-47.4928],
-  "pinheiro ma":[-2.5178,-45.0828],"balsas ma":[-7.5328,-46.0378],"aracaju se":[-10.9111,-37.0717],
-  "joao pessoa pb":[-7.1153,-34.8641],"joão pessoa pb":[-7.1153,-34.8641],
-  "arapiraca al":[-9.7528,-36.6628],"picos pi":[-7.0778,-41.4678],"boa vista rr":[2.8197,-60.6733],
-  "macapa ap":[0.0356,-51.0705],"macapá ap":[0.0356,-51.0705],"ananindeua pa":[-1.3658,-48.3728],
-  "castanhal pa":[-1.2978,-47.9228],"parauapebas pa":[-6.0678,-49.9028],"parauapebás pa":[-6.0678,-49.9028],
-  "altamira pa":[-3.2028,-52.2128],"itaituba pa":[-4.2778,-55.9828],"santarem pa":[-2.4392,-54.7081],
-  "santarém pa":[-2.4392,-54.7081],"palmas to":[-10.1678,-48.3278],"araguaina to":[-7.1928,-48.2028],
-  "araguaína to":[-7.1928,-48.2028],"blumenau sc":[-26.9178,-49.0661],"chapeco sc":[-27.1011,-52.6161],
-  "chapecó sc":[-27.1011,-52.6161],"lages sc":[-27.8161,-50.3261],"itajai sc":[-26.9078,-48.6661],
-  "itajaí sc":[-26.9078,-48.6661],"videira sc":[-27.0078,-51.1561],"icara sc":[-28.7178,-49.2978],
-  "içara sc":[-28.7178,-49.2978],"florianopolis sc":[-27.5969,-48.5495],"florianópolis sc":[-27.5969,-48.5495],
-  "viana es":[-20.3878,-40.4928],"curitiba pr":[-25.4278,-49.2731],"ponta grossa pr":[-25.0994,-50.1583],
-  "pinhais pr":[-25.4428,-49.1931],"cascavel pr":[-24.9578,-53.4553],"maringa pr":[-23.4178,-51.9331],
-  "maringá pr":[-23.4178,-51.9331],"foz do iguacu pr":[-25.5478,-54.5881],"foz do iguaçu pr":[-25.5478,-54.5881],
-  "umuarama pr":[-23.7658,-53.3242],"francisco beltrao pr":[-26.0828,-53.0578],"francisco beltrão pr":[-26.0828,-53.0578],
-  "londrina pr":[-23.3045,-51.1696],"guarapuava pr":[-25.3936,-51.4578]
-};
+// ── Coordenadas ──
+const COORDS={"guarulhos sp":[-23.4637,-46.5333],"campinas sp":[-22.9056,-47.0608],"presidente prudente sp":[-22.1256,-51.3889],"marília sp":[-22.2139,-49.9458],"votorantim sp":[-23.5486,-47.4381],"bauru sp":[-22.3246,-49.0661],"ribeirao preto sp":[-21.1775,-47.8103],"ribeirão preto sp":[-21.1775,-47.8103],"cotia sp":[-23.6036,-46.9192],"rio pardo sp":[-23.7,-49.0667],"sao paulo sp":[-23.5505,-46.6333],"são paulo sp":[-23.5505,-46.6333],"praia grande sp":[-24.0056,-46.4028],"braganca paulista sp":[-22.9519,-46.5428],"bragança paulista sp":[-22.9519,-46.5428],"hortolandia sp":[-22.8578,-47.2206],"hortolândia sp":[-22.8578,-47.2206],"araras sp":[-22.3583,-47.3836],"avare sp":[-23.0994,-48.9258],"avaré sp":[-23.0994,-48.9258],"boituva sp":[-23.2842,-47.6736],"santa barbara d'oeste sp":[-22.7542,-47.4142],"são vicente sp":[-23.9608,-46.3886],"sao vicente sp":[-23.9608,-46.3886],"ribeirao grande sp":[-24.1,-48.3667],"itapevi sp":[-23.5486,-47.0692],"araçatuba sp":[-21.2089,-50.4428],"aracatuba sp":[-21.2089,-50.4428],"osasco sp":[-23.5325,-46.7919],"são josé dos campos sp":[-23.1794,-45.8869],"sao jose dos campos sp":[-23.1794,-45.8869],"carapicuíba sp":[-23.5228,-46.8358],"carapicuiba sp":[-23.5228,-46.8358],"embu das artes sp":[-23.6497,-46.8519],"embu sp":[-23.6497,-46.8519],"iuiu ba":[-14.65,-43.65],"feira de santana ba":[-12.2664,-38.9663],"eunapolis ba":[-16.3778,-39.5786],"eunapólis ba":[-16.3778,-39.5786],"itabuna ba":[-14.7886,-39.2783],"lapao ba":[-11.3833,-41.8333],"lapão ba":[-11.3833,-41.8333],"luis eduardo magalhaes ba":[-12.0964,-45.7939],"paulo afonso ba":[-9.4086,-38.2147],"porto seguro ba":[-16.4292,-39.0647],"santo antonio de jesus ba":[-12.9739,-39.2628],"santo antônio de jesus ba":[-12.9739,-39.2628],"macaubas ba":[-13.0208,-42.6953],"macaúbas ba":[-13.0208,-42.6953],"salvador ba":[-12.9711,-38.5108],"camaçari ba":[-12.6997,-38.3239],"camacari ba":[-12.6997,-38.3239],"brumado ba":[-14.2039,-41.6647],"belo horizonte mg":[-19.9167,-43.9345],"uberlandia mg":[-18.9186,-48.2772],"uberlândia mg":[-18.9186,-48.2772],"uberaba mg":[-19.7478,-47.9317],"contagem mg":[-19.9317,-44.0536],"governador valadares mg":[-18.8511,-41.9494],"juiz de fora mg":[-21.7642,-43.3503],"patos de minas mg":[-18.5789,-46.5178],"teofilo otoni mg":[-17.8578,-41.5053],"teófilo otoni mg":[-17.8578,-41.5053],"montes claros mg":[-16.7286,-43.8628],"varginha mg":[-21.5508,-45.4303],"rio de janeiro rj":[-22.9068,-43.1729],"nova friburgo rj":[-22.2817,-42.5311],"campos dos goytacazes rj":[-21.7553,-41.3242],"porto alegre rs":[-30.0331,-51.23],"passo fundo rs":[-28.2628,-52.4069],"cangucu rs":[-31.3978,-52.6761],"canguçu rs":[-31.3978,-52.6761],"santiago rs":[-29.1911,-54.8681],"tres de maio rs":[-27.7678,-54.2428],"três de maio rs":[-27.7678,-54.2428],"goiania go":[-16.6869,-49.2648],"goiânia go":[-16.6869,-49.2648],"rio verde go":[-17.7978,-50.9278],"cidade ocidental go":[-16.0678,-47.9128],"goianesia go":[-15.3178,-49.1128],"goianésia go":[-15.3178,-49.1128],"mozarlandia go":[-14.7428,-50.5778],"mozarlândia go":[-14.7428,-50.5778],"campo grande ms":[-20.4428,-54.6461],"ponta pora ms":[-22.5328,-55.7261],"ponta porã ms":[-22.5328,-55.7261],"paranaiba ms":[-19.6778,-51.1928],"paranaíba ms":[-19.6778,-51.1928],"manaus am":[-3.1019,-60.025],"cuiaba mt":[-15.5961,-56.0967],"cuiabá mt":[-15.5961,-56.0967],"sinop mt":[-11.8628,-55.5028],"rondonopolis mt":[-16.4678,-54.6361],"rondonópolis mt":[-16.4678,-54.6361],"confresa mt":[-10.6378,-51.5628],"porto velho ro":[-8.7619,-63.9039],"vilhena ro":[-12.7378,-60.1428],"recife pe":[-8.0539,-34.8811],"jaboatao dos guararapes pe":[-8.1128,-35.0028],"jaboatão dos guararapes pe":[-8.1128,-35.0028],"gravata pe":[-8.2028,-35.5628],"gravatá pe":[-8.2028,-35.5628],"serra talhada pe":[-7.9878,-38.2928],"petrolina pe":[-9.3878,-40.5028],"natal rn":[-5.7928,-35.2128],"mossoro rn":[-5.1878,-37.3428],"mossoró rn":[-5.1878,-37.3428],"macaiba rn":[-5.8578,-35.3578],"macaíba rn":[-5.8578,-35.3578],"fortaleza ce":[-3.7172,-38.5431],"aquiraz ce":[-3.8978,-38.3928],"russas ce":[-4.9378,-37.9728],"sao luis ma":[-2.5297,-44.3028],"são luís ma":[-2.5297,-44.3028],"imperatriz ma":[-5.5228,-47.4928],"pinheiro ma":[-2.5178,-45.0828],"balsas ma":[-7.5328,-46.0378],"aracaju se":[-10.9111,-37.0717],"joao pessoa pb":[-7.1153,-34.8641],"joão pessoa pb":[-7.1153,-34.8641],"arapiraca al":[-9.7528,-36.6628],"picos pi":[-7.0778,-41.4678],"boa vista rr":[2.8197,-60.6733],"macapa ap":[0.0356,-51.0705],"macapá ap":[0.0356,-51.0705],"ananindeua pa":[-1.3658,-48.3728],"castanhal pa":[-1.2978,-47.9228],"parauapebas pa":[-6.0678,-49.9028],"parauapebás pa":[-6.0678,-49.9028],"altamira pa":[-3.2028,-52.2128],"itaituba pa":[-4.2778,-55.9828],"santarem pa":[-2.4392,-54.7081],"santarém pa":[-2.4392,-54.7081],"palmas to":[-10.1678,-48.3278],"araguaina to":[-7.1928,-48.2028],"araguaína to":[-7.1928,-48.2028],"blumenau sc":[-26.9178,-49.0661],"chapeco sc":[-27.1011,-52.6161],"chapecó sc":[-27.1011,-52.6161],"lages sc":[-27.8161,-50.3261],"itajai sc":[-26.9078,-48.6661],"itajaí sc":[-26.9078,-48.6661],"videira sc":[-27.0078,-51.1561],"icara sc":[-28.7178,-49.2978],"içara sc":[-28.7178,-49.2978],"florianopolis sc":[-27.5969,-48.5495],"florianópolis sc":[-27.5969,-48.5495],"viana es":[-20.3878,-40.4928],"curitiba pr":[-25.4278,-49.2731],"ponta grossa pr":[-25.0994,-50.1583],"pinhais pr":[-25.4428,-49.1931],"cascavel pr":[-24.9578,-53.4553],"maringa pr":[-23.4178,-51.9331],"maringá pr":[-23.4178,-51.9331],"foz do iguacu pr":[-25.5478,-54.5881],"foz do iguaçu pr":[-25.5478,-54.5881],"umuarama pr":[-23.7658,-53.3242],"francisco beltrao pr":[-26.0828,-53.0578],"francisco beltrão pr":[-26.0828,-53.0578],"londrina pr":[-23.3045,-51.1696],"guarapuava pr":[-25.3936,-51.4578]};
 
-const PRESTADORES = [
-  {n:"ALEX INSTALAÇÕES",c:"guarulhos sp"},{n:"BORGES AUTO SOM",c:"campinas sp"},
-  {n:"GBISAT",c:"iuiu ba"},{n:"RASTREK BAHIA",c:"feira de santana ba"},
-  {n:"LRG PRESTADORA DE SERVIÇOS",c:"presidente prudente sp"},{n:"LOB SAT",c:"marília sp"},
-  {n:"MARCHETTI INSTALAÇÃO DE RASTREADORES",c:"votorantim sp"},{n:"Z-TEC",c:"viana es"},
-  {n:"TELESAT",c:"bauru sp"},{n:"WORLD TECH SERVICE",c:"ribeirao preto sp"},
-  {n:"GARAGEM 235",c:"petrolina pe"},{n:"DIEGO GOMES",c:"montes claros mg"},
-  {n:"GEOEQUIPCAR",c:"santo antonio de jesus ba"},{n:"AUTO ELÉTRICA FERRARI",c:"campos dos goytacazes rj"},
-  {n:"SOUTRA INSTALAÇÕES",c:"varginha mg"},{n:"GRUPO IDEAL - GI",c:"cotia sp"},
-  {n:"CK INSTALAÇÃO E MANUTENÇÃO",c:"curitiba pr"},{n:"UPPERSAT",c:"ponta grossa pr"},
-  {n:"2-SAT",c:"rio pardo sp"},{n:"JNA SERVIÇOS AUTOMOTIVO",c:"cidade ocidental go"},
-  {n:"WORLD SAT",c:"goiania go"},{n:"IMPERIAL RASTREAMENTO",c:"ananindeua pa"},
-  {n:"SOLUTION CAR",c:"uberlandia mg"},{n:"BARCELOS SOUND CAR",c:"rio verde go"},
-  {n:"JTK INSTALACOES",c:"belo horizonte mg"},{n:"PRORRAC",c:"arapiraca al"},
-  {n:"RASTER SUL",c:"porto alegre rs"},{n:"AUTO ELETRICA SAO MIGUEL ARCANJO",c:"macaiba rn"},
-  {n:"EDUARDO COELHO SERVICOS",c:"macapa ap"},{n:"KARLA NEVES",c:"sao luis ma"},
-  {n:"RISE-UP",c:"rio de janeiro rj"},{n:"STELE",c:"chapeco sc"},
-  {n:"DAVID CARDOSO",c:"pinhais pr"},{n:"PBSAT MONITORAMENTO",c:"joao pessoa pb"},
-  {n:"VINE ELETRO DIESEL",c:"videira sc"},{n:"W C L RASTREADORES",c:"natal rn"},
-  {n:"GPS INSTALAÇÕES",c:"rio de janeiro rj"},{n:"AUTO SYSTEM RASTREAMENTO",c:"campo grande ms"},
-  {n:"INDY INSTALACOES",c:"blumenau sc"},{n:"L&M RASTREADORES",c:"lages sc"},
-  {n:"MARCELINHO SONS E ACESSORIOS",c:"contagem mg"},{n:"MECSAT MECANICA E RASTREADORES",c:"eunapolis ba"},
-  {n:"JMP SERVICOS ELETRICOS",c:"mossoro rn"},{n:"LADEIRA SOM E RASTREAMENTO",c:"cangucu rs"},
-  {n:"HOPPETHEC INSTALACOES ELETRONICAS",c:"passo fundo rs"},{n:"HC INSTALAÇÕES",c:"governador valadares mg"},
-  {n:"LG2 SERVIÇOS",c:"imperatriz ma"},{n:"POWER SAT",c:"bauru sp"},
-  {n:"IMOBI SAT MONITORAMENTO",c:"maringa pr"},{n:"AGP SERVICOS ELETRICOS AUTOMOTIVOS",c:"aquiraz ce"},
-  {n:"HASTAG SERVICOS",c:"itabuna ba"},{n:"H3I RASTREAMENTO",c:"pinheiro ma"},
-  {n:"TOP SOM",c:"aracaju se"},{n:"JC RASTREADORES",c:"manaus am"},
-  {n:"GS SOLUÇÕES",c:"sinop mt"},{n:"RR RASTREAMENTO VEICULAR",c:"itajai sc"},
-  {n:"MASTER RASTREAMENTO",c:"porto velho ro"},{n:"CLICK SOM",c:"cuiaba mt"},
-  {n:"ELECTRIC CAR",c:"itaituba pa"},{n:"DUDU AUTO ELETRICA",c:"uberaba mg"},
-  {n:"LUCAS NEIVA DOURADO",c:"lapao ba"},{n:"UNICK PRESTACAO DE SERVICO",c:"luis eduardo magalhaes ba"},
-  {n:"RIGON SERVICOS",c:"santiago rs"},{n:"ALEX SOM E ALARMES",c:"boa vista rr"},
-  {n:"STSAT",c:"praia grande sp"},{n:"PRS SOLUÇÕES E SERVIÇOS",c:"goianesia go"},
-  {n:"V B DE LIMA",c:"braganca paulista sp"},{n:"SOLUTECH",c:"castanhal pa"},
-  {n:"J & A RASTREADORES",c:"teofilo otoni mg"},{n:"MTRAKER",c:"mozarlandia go"},
-  {n:"SAGURAR",c:"serra talhada pe"},{n:"LUIS ANTONIO PEREIRA DOS SANTOS",c:"ponta pora ms"},
-  {n:"RAM TRACKING",c:"nova friburgo rj"},{n:"DUSAT RASTREAMENTO",c:"boituva sp"},
-  {n:"RASTREK PAULO AFONSO",c:"paulo afonso ba"},{n:"W.S TECNICA",c:"ribeirao preto sp"},
-  {n:"DE ALMEIDA INSTALAÇÃO DE RASTREADORES",c:"sao paulo sp"},{n:"TERA SOM & ACESSORIOS",c:"campinas sp"},
-  {n:"PAULO MAGALHAES",c:"gravata pe"},{n:"JULIUX",c:"palmas to"},
-  {n:"ATUAL RASTREADORES E ALARMES AUTOMOTIVOS",c:"sao paulo sp"},{n:"AUTO SYSTEM SC",c:"icara sc"},
-  {n:"MTRAKER CONFRESA",c:"confresa mt"},{n:"JF INSTALACAO",c:"passo fundo rs"},
-  {n:"R2 RASTREAMENTO",c:"recife pe"},{n:"LD RASTREAMENTO",c:"campo grande ms"},
-  {n:"CAPTURE RASTREAMENTO",c:"araguaina to"},{n:"ELETROTEC RASTREAMENTO E TELEMETRIA",c:"manaus am"},
-  {n:"UMUSAT",c:"umuarama pr"},{n:"SDTRACKERS",c:"rondonopolis mt"},
-  {n:"ALISSON RASTREAMENTO",c:"russas ce"},{n:"IC SEGURANÇA ELETRÔNICA",c:"picos pi"},
-  {n:"JC SERVICOS E EQUIPAMENTOS ELETRONICOS",c:"porto seguro ba"},
-  {n:"JNA RASTREADORES E SEGURANCA AUTOMOTIVA",c:"santa barbara d'oeste sp"},
-  {n:"NORTE RASTREADORES",c:"vilhena ro"},{n:"UBERLANDIA RASTREADORES",c:"uberlandia mg"},
-  {n:"X AUTO ELETRICA",c:"jaboatao dos guararapes pe"},{n:"LIVITY CAR RASTREADORES",c:"guarulhos sp"},
-  {n:"VIA SAT",c:"macaubas ba"},{n:"ANDRE DOS REIS MARQUES",c:"patos de minas mg"},
-  {n:"TELISOLUTION",c:"sao paulo sp"},{n:"EDUARDO AUTO PECAS E ACESSORIOS",c:"ribeirao grande sp"},
-  {n:"BRUNA RAQUEL",c:"são vicente sp"},{n:"GPS JR",c:"altamira pa"},
-  {n:"WH CAR",c:"juiz de fora mg"},{n:"VIRTUALIZE TECNOLOGIA",c:"araras sp"},
-  {n:"JENIFFER ALVES DE OLIVEIRA",c:"hortolandia sp"},{n:"OFICCIUM PRESTADORA",c:"cascavel pr"},
-  {n:"CLUB CAR ACESSORIOS",c:"avare sp"},{n:"BRSAT RASTREAMENTO",c:"tres de maio rs"},
-  {n:"GIDERLAN SOUSA VIANA",c:"parauapebas pa"},{n:"IVAN DOS SANTOS",c:"foz do iguacu pr"},
-  {n:"MP RASTREADORES E ELETRICA",c:"francisco beltrao pr"},{n:"COMERCIAL HS",c:"londrina pr"},
-  {n:"ANTONIO MARCOS DA SILVA",c:"itapevi sp"},{n:"JULIANO RUSSI",c:"aracatuba sp"},
-  {n:"GEON SOLUTIONS",c:"guarapuava pr"},{n:"MANUTEC",c:"paranaiba ms"},
-  {n:"CORRERIA RASTREAMENTOS",c:"salvador ba"},{n:"iSolution Soluções Automotivas",c:"florianopolis sc"},
-  {n:"WL SAT",c:"brumado ba"},{n:"MCS SAT LTDA",c:"osasco sp"},
-  {n:"Z-TEC SALVADOR",c:"camacari ba"},{n:"ANDERSON TRAVASSOS MOREIRA",c:"santarem pa"},
-  {n:"MAIARA ROMERO SANTOS TEXEIRA",c:"sao jose dos campos sp"},
-  {n:"4 RODAS AUTO CENTER LTDA",c:"juiz de fora mg"},{n:"ROBSON DOS SANTOS",c:"carapicuiba sp"},
-  {n:"G-TRACK-BALSAS",c:"balsas ma"}
-];
+// ── Prestadores com IQP ──
+const PRESTADORES=[{n:"ALEX INSTALAÇÕES",c:"guarulhos sp",nota:"🥇Ouro",score:"91,9%"},{n:"BORGES AUTO SOM",c:"campinas sp",nota:"🥇Ouro",score:"93,2%"},{n:"GBISAT",c:"iuiu ba",nota:"🥈Prata",score:"77,0%"},{n:"RASTREK BAHIA",c:"feira de santana ba",nota:"🥇Ouro",score:"86,3%"},{n:"LRG PRESTADORA DE SERVIÇOS",c:"presidente prudente sp",nota:"🥇Ouro",score:"92,8%"},{n:"LOB SAT",c:"marília sp",nota:"🥈Prata",score:"76,5%"},{n:"MARCHETTI INSTALAÇÃO DE RASTREADORES",c:"votorantim sp",nota:"🥇Ouro",score:"90,0%"},{n:"Z-TEC",c:"viana es",nota:"🥇Ouro",score:"92,2%"},{n:"TELESAT",c:"bauru sp",nota:"🥈Prata",score:"84,8%"},{n:"WORLD TECH SERVICE",c:"ribeirao preto sp",nota:"🥇Ouro",score:"89,6%"},{n:"GARAGEM 235",c:"petrolina pe",nota:"🥇Ouro",score:"93,3%"},{n:"DIEGO GOMES",c:"montes claros mg",nota:"🥈Prata",score:"77,8%"},{n:"GEOEQUIPCAR",c:"santo antonio de jesus ba",nota:"🥈Prata",score:"78,1%"},{n:"AUTO ELÉTRICA FERRARI",c:"campos dos goytacazes rj",nota:"🥇Ouro",score:"88,4%"},{n:"SOUTRA INSTALAÇÕES",c:"varginha mg",nota:"💎Diamante",score:"100,0%"},{n:"GRUPO IDEAL - GI",c:"cotia sp",nota:"💎Diamante",score:"96,5%"},{n:"CK INSTALAÇÃO E MANUTENÇÃO",c:"curitiba pr",nota:"🥇Ouro",score:"90,3%"},{n:"UPPERSAT",c:"ponta grossa pr",nota:"🥇Ouro",score:"94,0%"},{n:"2-SAT",c:"rio pardo sp",nota:"🥈Prata",score:"83,6%"},{n:"JNA SERVIÇOS AUTOMOTIVO E RASTREAMENTO",c:"cidade ocidental go",nota:"💎Diamante",score:"95,6%"},{n:"WORLD SAT",c:"goiania go",nota:"💎Diamante",score:"95,2%"},{n:"IMPERIAL RASTREAMENTO",c:"ananindeua pa",nota:"🥈Prata",score:"78,9%"},{n:"SOLUTION CAR",c:"uberlandia mg",nota:"💎Diamante",score:"95,5%"},{n:"BARCELOS SOUND CAR",c:"rio verde go",nota:"🥈Prata",score:"83,6%"},{n:"JTK INSTALACOES DE RASTREADOR VIA SATELITE",c:"belo horizonte mg",nota:"🥇Ouro",score:"87,3%"},{n:"PRORRAC",c:"arapiraca al",nota:"🥈Prata",score:"75,3%"},{n:"RASTER SUL - RASTREAMENTO E SERVIÇOS TÉCNICOS",c:"porto alegre rs",nota:"🥇Ouro",score:"89,6%"},{n:"AUTO ELETRICA SAO MIGUEL ARCANJO",c:"macaiba rn",nota:"💎Diamante",score:"99,2%"},{n:"EDUARDO COELHO SERVICOS",c:"macapa ap",nota:"🥇Ouro",score:"92,3%"},{n:"KARLA NEVES",c:"sao luis ma",nota:"🥇Ouro",score:"93,2%"},{n:"RISE-UP",c:"rio de janeiro rj",nota:"🥇Ouro",score:"88,3%"},{n:"STELE",c:"chapeco sc",nota:"🥇Ouro",score:"90,6%"},{n:"DAVID CARDOSO",c:"pinhais pr",nota:"🥈Prata",score:"84,0%"},{n:"PBSAT MONITORAMENTO",c:"joao pessoa pb",nota:"🥇Ouro",score:"87,9%"},{n:"VINE ELETRO DIESEL",c:"videira sc",nota:"🥈Prata",score:"84,3%"},{n:"W C L RASTREADORES",c:"natal rn",nota:"🥈Prata",score:"82,5%"},{n:"GPS INSTALAÇÕES",c:"rio de janeiro rj",nota:"🥇Ouro",score:"93,8%"},{n:"AUTO SYSTEM RASTREAMENTO",c:"campo grande ms",nota:"🥇Ouro",score:"88,6%"},{n:"INDY INSTALACOES DE ACESSORIOS AUTOMOTIVOS",c:"blumenau sc",nota:"🥈Prata",score:"81,3%"},{n:"L&M RASTREADORES",c:"lages sc",nota:"🥈Prata",score:"83,5%"},{n:"MARCELINHO SONS E ACESSORIOS",c:"contagem mg",nota:"🥇Ouro",score:"91,1%"},{n:"MECSAT MECANICA E RASTREADORES",c:"eunapolis ba",nota:"🥈Prata",score:"82,4%"},{n:"JMP SERVICOS ELETRICOS",c:"mossoro rn",nota:"💎Diamante",score:"100,0%"},{n:"LADEIRA SOM E RASTREAMENTO",c:"cangucu rs",nota:"🥈Prata",score:"69,9%"},{n:"HOPPETHEC INSTALACOES ELETRONICAS LTDA",c:"passo fundo rs",nota:"🥈Prata",score:"68,3%"},{n:"HC INSTALAÇÕES",c:"governador valadares mg",nota:"💎Diamante",score:"95,6%"},{n:"LG2 SERVIÇOS",c:"imperatriz ma",nota:"🥇Ouro",score:"87,3%"},{n:"POWER SAT",c:"bauru sp",nota:"💎Diamante",score:"95,8%"},{n:"IMOBI SAT MONITORAMENTO",c:"maringa pr",nota:"🥇Ouro",score:"91,6%"},{n:"AGP SERVICOS ELETRICOS AUTOMOTIVOS",c:"aquiraz ce",nota:"💎Diamante",score:"97,4%"},{n:"HASTAG SERVICOS",c:"itabuna ba",nota:"🥈Prata",score:"83,8%"},{n:"H3I RASTREAMENTO",c:"pinheiro ma",nota:"🥈Prata",score:"84,7%"},{n:"TOP SOM",c:"aracaju se",nota:"🥇Ouro",score:"86,1%"},{n:"JC RASTREADORES",c:"manaus am",nota:"🥇Ouro",score:"90,6%"},{n:"GS SOLUÇÕES",c:"sinop mt",nota:"🥇Ouro",score:"90,8%"},{n:"RR RASTREAMENTO VEICULAR",c:"itajai sc",nota:"🥇Ouro",score:"89,6%"},{n:"MASTER RASTREAMENTO",c:"porto velho ro",nota:"🥇Ouro",score:"88,1%"},{n:"CLICK SOM",c:"cuiaba mt",nota:"🥇Ouro",score:"91,7%"},{n:"ELECTRIC CAR",c:"itaituba pa",nota:"🥈Prata",score:"74,5%"},{n:"DUDU AUTO ELETRICA",c:"uberaba mg",nota:"🥇Ouro",score:"93,6%"},{n:"LUCAS NEIVA DOURADO",c:"lapao ba",nota:"🥈Prata",score:"71,8%"},{n:"UNICK PRESTACAO DE SERVICO",c:"luis eduardo magalhaes ba",nota:"🥇Ouro",score:"92,8%"},{n:"RIGON SERVICOS",c:"santiago rs",nota:"🥇Ouro",score:"89,5%"},{n:"ALEX SOM E ALARMES",c:"boa vista rr",nota:"🥈Prata",score:"61,2%"},{n:"STSAT",c:"praia grande sp",nota:"🥇Ouro",score:"88,7%"},{n:"PRS SOLUÇÕES E SERVIÇOS",c:"goianesia go",nota:"🥇Ouro",score:"87,7%"},{n:"V B DE LIMA",c:"braganca paulista sp",nota:"💎Diamante",score:"97,3%"},{n:"SOLUTECH",c:"castanhal pa",nota:"🥇Ouro",score:"90,3%"},{n:"J & A RASTREADORES",c:"teofilo otoni mg",nota:"🥈Prata",score:"73,3%"},{n:"MTRAKER",c:"mozarlandia go",nota:"🥈Prata",score:"73,4%"},{n:"SAGURAR",c:"serra talhada pe",nota:"🥇Ouro",score:"85,3%"},{n:"LUIS ANTONIO PEREIRA DOS SANTOS",c:"ponta pora ms",nota:"🥈Prata",score:"83,5%"},{n:"RAM TRACKING",c:"nova friburgo rj",nota:"🥈Prata",score:"84,4%"},{n:"DUSAT RASTREAMENTO",c:"boituva sp",nota:"🥇Ouro",score:"89,7%"},{n:"RASTREK PAULO AFONSO",c:"paulo afonso ba",nota:"🥈Prata",score:"82,0%"},{n:"W.S TECNICA",c:"ribeirao preto sp",nota:"🥇Ouro",score:"89,1%"},{n:"DE ALMEIDA INSTALAÇÃO DE RASTREADORES",c:"sao paulo sp",nota:"💎Diamante",score:"95,7%"},{n:"TERA SOM & ACESSORIOS",c:"campinas sp",nota:"🥇Ouro",score:"93,9%"},{n:"PAULO MAGALHAES",c:"gravata pe",nota:"💎Diamante",score:"98,3%"},{n:"JULIUX",c:"palmas to",nota:"🥈Prata",score:"83,6%"},{n:"ATUAL RASTREADORES E ALARMES AUTOMOTIVOS",c:"sao paulo sp",nota:"🥇Ouro",score:"89,6%"},{n:"AUTO SYSTEM SC",c:"icara sc",nota:"🥇Ouro",score:"93,5%"},{n:"MTRAKER CONFRESA",c:"confresa mt",nota:"🥈Prata",score:"80,0%"},{n:"JF INSTALACAO",c:"passo fundo rs",nota:"🥈Prata",score:"61,0%"},{n:"R2 RASTREAMENTO",c:"recife pe",nota:"🥈Prata",score:"77,3%"},{n:"LD RASTREAMENTO",c:"campo grande ms",nota:"🥇Ouro",score:"93,9%"},{n:"CAPTURE RASTREAMENTO",c:"araguaina to",nota:"🥈Prata",score:"80,3%"},{n:"ELETROTEC RASTREAMENTO E TELEMETRIA",c:"manaus am",nota:"",score:""},{n:"UMUSAT",c:"umuarama pr",nota:"🥇Ouro",score:"90,0%"},{n:"SDTRACKERS",c:"rondonopolis mt",nota:"🥇Ouro",score:"91,4%"},{n:"ALISSON RASTREAMENTO",c:"russas ce",nota:"🥇Ouro",score:"93,7%"},{n:"IC SEGURANÇA ELETRÔNICA",c:"picos pi",nota:"🥈Prata",score:"81,4%"},{n:"JC SERVICOS E EQUIPAMENTOS ELETRONICOS",c:"porto seguro ba",nota:"🥈Prata",score:"70,0%"},{n:"JNA RASTREADORES E SEGURANCA AUTOMOTIVA LTDA",c:"santa barbara d'oeste sp",nota:"🥇Ouro",score:"85,6%"},{n:"NORTE RASTREADORES",c:"vilhena ro",nota:"🥈Prata",score:"83,0%"},{n:"UBERLANDIA RASTREADORES",c:"uberlandia mg",nota:"🥈Prata",score:"68,2%"},{n:"X AUTO ELETRICA",c:"jaboatao dos guararapes pe",nota:"🥇Ouro",score:"86,0%"},{n:"LIVITY CAR RASTREADORES",c:"guarulhos sp",nota:"🥇Ouro",score:"93,6%"},{n:"VIA SAT",c:"macaubas ba",nota:"🥇Ouro",score:"86,0%"},{n:"ANDRE DOS REIS MARQUES",c:"patos de minas mg",nota:"🥈Prata",score:"76,6%"},{n:"TELISOLUTION",c:"sao paulo sp",nota:"💎Diamante",score:"98,3%"},{n:"EDUARDO AUTO PECAS E ACESSORIOS",c:"ribeirao grande sp",nota:"",score:""},{n:"BRUNA RAQUEL",c:"são vicente sp",nota:"🥇Ouro",score:"91,9%"},{n:"GPS JR",c:"altamira pa",nota:"🥈Prata",score:"70,4%"},{n:"WH CAR",c:"juiz de fora mg",nota:"🥈Prata",score:"62,8%"},{n:"VIRTUALIZE TECNOLOGIA",c:"araras sp",nota:"🥇Ouro",score:"85,7%"},{n:"JENIFFER ALVES DE OLIVEIRA",c:"hortolandia sp",nota:"🥇Ouro",score:"88,0%"},{n:"OFICCIUM PRESTADORA",c:"cascavel pr",nota:"🥈Prata",score:"84,5%"},{n:"CLUB CAR ACESSORIOS",c:"avare sp",nota:"🥈Prata",score:"83,3%"},{n:"BRSAT RASTREAMENTO",c:"tres de maio rs",nota:"💎Diamante",score:"98,2%"},{n:"GIDERLAN SOUSA VIANA",c:"parauapebas pa",nota:"🥇Ouro",score:"89,7%"},{n:"IVAN DOS SANTOS",c:"foz do iguacu pr",nota:"🥈Prata",score:"73,0%"},{n:"MP RASTREADORES E ELETRICA",c:"francisco beltrao pr",nota:"",score:""},{n:"COMERCIAL HS",c:"londrina pr",nota:"🥇Ouro",score:"86,4%"},{n:"ANTONIO MARCOS DA SILVA",c:"itapevi sp",nota:"🥇Ouro",score:"94,6%"},{n:"JULIANO RUSSI",c:"aracatuba sp",nota:"🥇Ouro",score:"89,6%"},{n:"GEON SOLUTIONS RASTREAMENTO E TELEMETRIA",c:"guarapuava pr",nota:"💎Diamante",score:"97,0%"},{n:"MANUTEC",c:"paranaiba ms",nota:"🥈Prata",score:"74,5%"},{n:"CORRERIA RASTREAMENTOS",c:"salvador ba",nota:"🥇Ouro",score:"86,4%"},{n:"iSolution Soluções Automotivas",c:"florianopolis sc",nota:"💎Diamante",score:"95,0%"},{n:"WL SAT",c:"brumado ba",nota:"🥇Ouro",score:"88,5%"},{n:"MCS SAT LTDA",c:"osasco sp",nota:"🥈Prata",score:"84,8%"},{n:"Z-TEC SALVADOR",c:"camacari ba",nota:"🥇Ouro",score:"94,1%"},{n:"ANDERSON TRAVASSOS MOREIRA",c:"santarem pa",nota:"🥈Prata",score:"72,2%"},{n:"MAIARA ROMERO SANTOS TEXEIRA",c:"sao jose dos campos sp",nota:"💎Diamante",score:"97,1%"},{n:"4 RODAS AUTO CENTER LTDA",c:"juiz de fora mg",nota:"🥉Bronze",score:"57,5%"},{n:"ROBSON DOS SANTOS",c:"carapicuiba sp",nota:"",score:""},{n:"G-TRACK-BALSAS",c:"balsas ma",nota:"",score:""}];
 
-PRESTADORES.forEach(p => { const c = COORDS[p.c]; if(c){p.lat=c[0];p.lon=c[1];} });
+// Enriquecer com coordenadas
+PRESTADORES.forEach(p=>{const c=COORDS[p.c];if(c){p.lat=c[0];p.lon=c[1];}});
 
-// ── Mapa Leaflet ──
-let map = null, circleLayer = null, markersLayer = null, clientMarker = null;
+// ── Filtro ativo ──
+let filtroAtivo = 'todos';
+function setFilter(f, btn) {
+  filtroAtivo = f;
+  document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+  btn.classList.add('active');
+}
 
-function initMap(clientLat, clientLon, raio, results) {
-  const wrap = document.getElementById('map-wrap');
-  wrap.style.display = 'block';
+function notaKey(nota) {
+  if (!nota) return 'none';
+  if (nota.includes('Diamante')) return 'diamante';
+  if (nota.includes('Ouro')) return 'ouro';
+  if (nota.includes('Prata')) return 'prata';
+  if (nota.includes('Bronze')) return 'bronze';
+  return 'none';
+}
 
+function iqpColor(nota) {
+  const k = notaKey(nota);
+  if (k==='diamante') return '#3d2fa0';
+  if (k==='ouro') return '#b8860b';
+  if (k==='prata') return '#607080';
+  if (k==='bronze') return '#8B5E3C';
+  return '#aaa';
+}
+
+function iqpClass(nota) {
+  const k = notaKey(nota);
+  return `iqp-${k}`;
+}
+
+function mapColor(inside, nota) {
+  if (!inside) return '#FF4633';
+  const k = notaKey(nota);
+  if (k==='diamante') return '#3d2fa0';
+  if (k==='ouro') return '#DAA520';
+  if (k==='prata') return '#607080';
+  if (k==='bronze') return '#8B5E3C';
+  return '#00AE97';
+}
+
+// ── Mapa ──
+let map=null, circleLayer=null, markersLayer=null, clientMarker=null;
+function initMap(lat, lon, raio, results) {
+  document.getElementById('map-wrap').style.display='block';
   if (!map) {
-    map = L.map('map').setView([clientLat, clientLon], 7);
-    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-      attribution: '© OpenStreetMap contributors', maxZoom: 18
-    }).addTo(map);
+    map = L.map('map').setView([lat,lon],7);
+    L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',{attribution:'© OpenStreetMap',maxZoom:18}).addTo(map);
   } else {
-    map.setView([clientLat, clientLon], 7);
-    if (circleLayer) map.removeLayer(circleLayer);
-    if (markersLayer) markersLayer.clearLayers();
-    if (clientMarker) map.removeLayer(clientMarker);
+    map.setView([lat,lon],7);
+    if(circleLayer) map.removeLayer(circleLayer);
+    if(markersLayer) markersLayer.clearLayers();
+    if(clientMarker) map.removeLayer(clientMarker);
   }
-
-  // Círculo do raio
-  circleLayer = L.circle([clientLat, clientLon], {
-    radius: raio * 1000,
-    color: '#001BB8', fillColor: '#001BB8', fillOpacity: 0.06, weight: 1.5
-  }).addTo(map);
-
-  // Marcador do cliente
-  const clientIcon = L.divIcon({
-    className: '',
-    html: `<div style="width:14px;height:14px;background:#001BB8;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px #001BB8"></div>`,
-    iconSize: [14,14], iconAnchor: [7,7]
-  });
-  clientMarker = L.marker([clientLat, clientLon], {icon: clientIcon})
-    .bindPopup('<b>Cliente</b>').addTo(map);
-
-  // Marcadores dos prestadores
-  if (!markersLayer) markersLayer = L.layerGroup().addTo(map);
-
-  results.forEach(r => {
-    if (!r.lat || !r.lon) return;
-    const inside = r.dist !== null && r.dist <= raio;
-    const color = inside ? '#00AE97' : '#FF4633';
-    const icon = L.divIcon({
-      className: '',
-      html: `<div style="width:10px;height:10px;background:${color};border-radius:50%;border:1.5px solid #fff;box-shadow:0 1px 3px rgba(0,0,0,0.3)"></div>`,
-      iconSize: [10,10], iconAnchor: [5,5]
-    });
-    L.marker([r.lat, r.lon], {icon})
-      .bindPopup(`<b>${r.name}</b><br>${r.addr}<br><span style="color:${color};font-weight:600">${r.dist !== null ? r.dist+'km' : 'sem dados'}</span>`)
+  circleLayer = L.circle([lat,lon],{radius:raio*1000,color:'#001BB8',fillColor:'#001BB8',fillOpacity:.06,weight:1.5}).addTo(map);
+  clientMarker = L.marker([lat,lon],{icon:L.divIcon({className:'',html:`<div style="width:14px;height:14px;background:#001BB8;border-radius:50%;border:2px solid #fff;box-shadow:0 0 0 2px #001BB8"></div>`,iconSize:[14,14],iconAnchor:[7,7]})}).bindPopup('<b>Cliente</b>').addTo(map);
+  if(!markersLayer) markersLayer=L.layerGroup().addTo(map);
+  results.forEach(r=>{
+    if(!r.lat||!r.lon) return;
+    const inside=r.dist!==null&&r.dist<=raio;
+    const color=mapColor(inside,r.nota);
+    const size=notaKey(r.nota)==='diamante'?13:10;
+    L.marker([r.lat,r.lon],{icon:L.divIcon({className:'',html:`<div style="width:${size}px;height:${size}px;background:${color};border-radius:50%;border:1.5px solid #fff;box-shadow:0 1px 4px rgba(0,0,0,0.25)"></div>`,iconSize:[size,size],iconAnchor:[size/2,size/2]})})
+      .bindPopup(`<b>${r.name}</b><br><span style="color:${color}">${r.nota||'Sem nota'}</span> · ${r.score||'—'}<br>${r.addr}<br><b style="color:${inside?'#00AE97':'#FF4633'}">${r.dist!==null?r.dist+'km':'sem dados'}</b>`)
       .addTo(markersLayer);
   });
-
-  // Fit bounds
-  const bounds = circleLayer.getBounds();
-  map.fitBounds(bounds, {padding: [20,20]});
-  setTimeout(() => map.invalidateSize(), 100);
+  map.fitBounds(circleLayer.getBounds(),{padding:[20,20]});
+  setTimeout(()=>map.invalidateSize(),100);
 }
 
 // ── Geo ──
-function haversine(lat1,lon1,lat2,lon2) {
-  const R=6371,r=Math.PI/180;
-  const dLat=(lat2-lat1)*r,dLon=(lon2-lon1)*r;
-  const a=Math.sin(dLat/2)**2+Math.cos(lat1*r)*Math.cos(lat2*r)*Math.sin(dLon/2)**2;
-  return Math.round(R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a)));
-}
-
-function setStatus(msg) {
-  document.getElementById('results').innerHTML=`<div class="status-msg"><div class="spinner"></div>${msg}</div>`;
-}
-
-function extrairCEP(t) { const m=t.replace(/\D/g,''); return m.length===8?m:null; }
-
-async function geocodeCliente(input) {
-  const texto = input.trim();
-  const cep = extrairCEP(texto);
-  if (cep) {
-    try {
-      const r = await fetch(`https://viacep.com.br/ws/${cep}/json/`);
-      const d = await r.json();
-      if (!d.erro) {
-        const chave = `${d.localidade} ${d.uf}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');
-        const coord = COORDS[chave] || COORDS[`${d.localidade.toLowerCase()} ${d.uf.toLowerCase()}`];
-        if (coord) return { lat: coord[0], lon: coord[1], label: `${d.localidade} - ${d.uf}` };
-      }
-    } catch(e) {}
-  }
-  const normalizado = texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[,\-\/]/g,' ').replace(/\s+/g,' ').trim();
-  for (const [k,v] of Object.entries(COORDS)) {
-    if (normalizado.includes(k) || k.includes(normalizado)) return { lat: v[0], lon: v[1], label: texto };
-  }
-  try {
-    const url = `https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(texto+', Brasil')}&format=json&limit=1&accept-language=pt-BR&countrycodes=br`;
-    const r = await fetch(url, {headers:{'User-Agent':'cobli-cobertura/1.0'}});
-    const d = await r.json();
-    if (d.length) return { lat: parseFloat(d[0].lat), lon: parseFloat(d[0].lon), label: texto };
-  } catch(e) {}
+function haversine(a,b,c,d){const R=6371,r=Math.PI/180,dL=(c-a)*r,dO=(d-b)*r,x=Math.sin(dL/2)**2+Math.cos(a*r)*Math.cos(c*r)*Math.sin(dO/2)**2;return Math.round(R*2*Math.atan2(Math.sqrt(x),Math.sqrt(1-x)));}
+function extrairCEP(t){const m=t.replace(/\D/g,'');return m.length===8?m:null;}
+async function geocodeCliente(input){
+  const texto=input.trim();
+  const cep=extrairCEP(texto);
+  if(cep){try{const r=await fetch(`https://viacep.com.br/ws/${cep}/json/`);const d=await r.json();if(!d.erro){const ch=`${d.localidade} ${d.uf}`.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'');const co=COORDS[ch]||COORDS[`${d.localidade.toLowerCase()} ${d.uf.toLowerCase()}`];if(co)return{lat:co[0],lon:co[1],label:`${d.localidade} - ${d.uf}`};}}catch(e){}}
+  const norm=texto.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[,\-\/]/g,' ').replace(/\s+/g,' ').trim();
+  for(const[k,v]of Object.entries(COORDS)){if(norm.includes(k)||k.includes(norm))return{lat:v[0],lon:v[1],label:texto};}
+  try{const r=await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(texto+', Brasil')}&format=json&limit=1&accept-language=pt-BR&countrycodes=br`,{headers:{'User-Agent':'cobli-cobertura/1.0'}});const d=await r.json();if(d.length)return{lat:parseFloat(d[0].lat),lon:parseFloat(d[0].lon),label:texto};}catch(e){}
   return null;
 }
+function setStatus(msg){document.getElementById('results').innerHTML=`<div class="status-msg"><div class="spinner"></div>${msg}</div>`;}
 
-async function buscarUm() {
-  const input = document.getElementById('addr-input').value.trim();
-  if (!input) { alert('Digite o CEP ou cidade do cliente.'); return; }
-  const raio = parseInt(document.getElementById('raio').value);
-
+async function buscarUm(){
+  const input=document.getElementById('addr-input').value.trim();
+  if(!input){alert('Digite o CEP ou cidade.');return;}
+  const raio=parseInt(document.getElementById('raio').value);
   setStatus('Localizando endereço…');
-  const geo = await geocodeCliente(input);
+  const geo=await geocodeCliente(input);
+  if(!geo){document.getElementById('results').innerHTML=`<div class="empty">Endereço não encontrado.<small>Tente o CEP (ex: <b>04547-100</b>) ou cidade com estado (ex: <b>São Paulo, SP</b>)</small></div>`;return;}
 
-  if (!geo) {
-    document.getElementById('results').innerHTML = `<div class="empty">Endereço não encontrado.<small>Tente digitar só o CEP (ex: <b>04547-100</b>) ou cidade com estado (ex: <b>São Paulo, SP</b>)</small></div>`;
-    return;
-  }
+  const lista=PRESTADORES.filter(p=>{
+    if(filtroAtivo==='todos') return true;
+    return notaKey(p.nota)===filtroAtivo;
+  });
 
-  const results = PRESTADORES.map(p => ({
-    name: p.n,
-    addr: p.c.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' '),
-    lat: p.lat, lon: p.lon,
-    dist: (p.lat && p.lon) ? haversine(geo.lat, geo.lon, p.lat, p.lon) : null
+  const results=lista.map(p=>({
+    name:p.n, addr:p.c.split(' ').map(w=>w.charAt(0).toUpperCase()+w.slice(1)).join(' '),
+    nota:p.nota, score:p.score, lat:p.lat, lon:p.lon,
+    dist:(p.lat&&p.lon)?haversine(geo.lat,geo.lon,p.lat,p.lon):null
   }));
 
-  initMap(geo.lat, geo.lon, raio, results);
-  renderResults(geo.label || input, results, raio);
+  initMap(geo.lat,geo.lon,raio,results);
+  renderResults(geo.label||input,results,raio);
 }
 
-function renderResults(clientLabel, results, raio) {
-  results.sort((a,b) => (a.dist??9999)-(b.dist??9999));
-  const inside  = results.filter(r => r.dist!==null && r.dist<=raio);
-  const outside = results.filter(r => r.dist===null || r.dist>raio);
+function renderResults(label,results,raio){
+  results.sort((a,b)=>(a.dist??9999)-(b.dist??9999));
+  const inside=results.filter(r=>r.dist!==null&&r.dist<=raio);
+  const outside=results.filter(r=>r.dist===null||r.dist>raio);
 
-  let html = `<div class="summary-bar">
-    <div class="summary-item hit"><b>${inside.length}</b> prestador(es) no raio</div>
+  let html=`<div class="summary-bar">
+    <div class="summary-item hit"><b>${inside.length}</b> no raio</div>
     <div class="summary-item miss"><b>${outside.length}</b> fora do raio</div>
-    <div class="summary-meta">${clientLabel} · ${raio}km</div>
+    <div class="summary-meta">${label} · ${raio}km${filtroAtivo!=='todos'?' · filtro: '+filtroAtivo:''}</div>
   </div>`;
 
-  if (inside.length) {
-    html += `<div class="section-sep">Dentro do raio — ${inside.length} prestador(es)</div>`;
-    inside.forEach(r => {
-      html += `<div class="result-item inside" onclick="flyTo(${r.lat},${r.lon},'${r.name.replace(/'/g,"\\'")}')">
-        <div class="result-info"><div class="result-name">${r.name}</div><div class="result-addr">${r.addr}</div></div>
-        <div class="dist-badge ok">${r.dist}km</div>
-      </div>`;
-    });
-  } else {
-    html += `<div class="empty" style="margin-bottom:12px;">Nenhum prestador ativo dentro de ${raio}km.<small>Tente aumentar o raio de busca.</small></div>`;
-  }
-
-  if (outside.length) {
-    html += `<div class="section-sep">Mais próximos fora do raio</div>`;
-    outside.slice(0,8).forEach(r => {
-      html += `<div class="result-item outside" onclick="flyTo(${r.lat},${r.lon},'${r.name.replace(/'/g,"\\'")}')">
-        <div class="result-info"><div class="result-name">${r.name}</div><div class="result-addr">${r.addr}</div></div>
-        ${r.dist===null?'<div class="dist-badge far">sem dados</div>':`<div class="dist-badge far">${r.dist}km</div>`}
-      </div>`;
-    });
-    if (outside.length>8) html+=`<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:8px;">+ ${outside.length-8} outros fora do raio</div>`;
-  }
-
-  html += `<div class="export-row"><button class="btn-export" onclick="exportCSV()">Exportar resultado CSV</button></div>`;
-  document.getElementById('results').innerHTML = html;
-  window._lastResults = results; window._lastClient = clientLabel; window._lastRaio = raio;
-}
-
-function flyTo(lat, lon, name) {
-  if (!map || !lat || !lon) return;
-  document.getElementById('map-wrap').scrollIntoView({behavior:'smooth', block:'center'});
-  setTimeout(() => { map.flyTo([lat, lon], 12, {duration: 1}); }, 300);
-}
-
-// ── Busca em lote ──
-const state = { cli: null, cliCols: {} };
-
-function handleFileCli(input) {
-  const file = input.files[0];
-  if (!file) return;
-  const reader = new FileReader();
-  reader.onload = e => {
-    const lines = e.target.result.trim().split(/\r?\n/);
-    const sep = lines[0].includes(';') ? ';' : ',';
-    const headers = lines[0].split(sep).map(h => h.trim().replace(/^"|"$/g,''));
-    const rows = lines.slice(1).map(l => {
-      const cols = l.split(sep).map(c => c.trim().replace(/^"|"$/g,''));
-      const obj = {}; headers.forEach((h,i) => obj[h]=cols[i]||''); return obj;
-    }).filter(r => Object.values(r).some(v => v));
-    state.cli = { headers, rows };
-    const guess = kws => headers.find(h => kws.some(k => h.toLowerCase().includes(k))) || headers[0];
-    state.cliCols.name = guess(['nome','name','cliente','razao','empresa']);
-    state.cliCols.addr = guess(['cep','endereco','endereço','cidade','address']);
-    document.getElementById('status-cli').textContent = `✓ ${file.name} — ${rows.length} clientes`;
-    document.getElementById('status-cli').style.display = 'block';
-    document.getElementById('zone-cli').classList.add('loaded');
-    const info = document.getElementById('info-cli');
-    info.style.display = 'block';
-    info.innerHTML = `<b>${rows.length} clientes</b> carregados · coluna de endereço: <b>"${state.cliCols.addr}"</b>`;
-    document.getElementById('btn-lote-wrap').style.display = 'block';
+  const renderItem=(r,cls)=>{
+    const iqpBadge=r.nota?`<span class="iqp-badge ${iqpClass(r.nota)}">${r.nota} ${r.score}</span>`:`<span class="iqp-badge iqp-none">sem nota</span>`;
+    const distBadge=`<span class="dist-badge ${cls==='inside'?'ok':'far'}">${r.dist!==null?r.dist+'km':'—'}</span>`;
+    return `<div class="result-item ${cls}" onclick="flyTo(${r.lat},${r.lon},'${r.name.replace(/'/g,"\\'")}')">
+      <div class="result-info">
+        <div class="result-name">${r.name}</div>
+        <div class="result-addr">${r.addr}</div>
+      </div>
+      <div class="result-right">${distBadge}${iqpBadge}</div>
+    </div>`;
   };
-  reader.readAsText(file, 'UTF-8');
+
+  if(inside.length){
+    html+=`<div class="section-sep">Dentro do raio — ${inside.length}</div>`;
+    inside.forEach(r=>{html+=renderItem(r,'inside');});
+  } else {
+    html+=`<div class="empty" style="margin-bottom:12px;">Nenhum prestador dentro de ${raio}km.<small>Tente aumentar o raio ou mudar o filtro IQP.</small></div>`;
+  }
+  if(outside.length){
+    html+=`<div class="section-sep">Mais próximos fora do raio</div>`;
+    outside.slice(0,8).forEach(r=>{html+=renderItem(r,'outside');});
+    if(outside.length>8) html+=`<div style="font-size:12px;color:var(--text-muted);text-align:center;padding:8px;">+ ${outside.length-8} outros</div>`;
+  }
+  html+=`<div class="export-row"><button class="btn-export" onclick="exportCSV()">Exportar resultado CSV</button></div>`;
+  document.getElementById('results').innerHTML=html;
+  window._lastResults=results;window._lastClient=label;window._lastRaio=raio;
 }
 
-async function buscarLote() {
-  if (!state.cli) { alert('Carregue a planilha de clientes.'); return; }
-  const raio = parseInt(document.getElementById('raio').value);
-  const clientes = state.cli.rows;
-  const loteResults = [];
-  for (let i = 0; i < clientes.length; i++) {
-    setStatus(`Geocodificando clientes… ${i+1}/${clientes.length}`);
-    const c = clientes[i];
-    const geo = await geocodeCliente(c[state.cliCols.addr] || '');
-    let closest = null, closestDist = Infinity;
-    const dentro = [];
-    if (geo) {
-      for (const p of PRESTADORES) {
-        if (!p.lat) continue;
-        const d = haversine(geo.lat, geo.lon, p.lat, p.lon);
-        if (d <= raio) dentro.push({name:p.n, dist:d});
-        if (d < closestDist) { closestDist = d; closest = p.n; }
-      }
-    }
-    loteResults.push({
-      cliente: c[state.cliCols.name]||'—', endereco: c[state.cliCols.addr]||'—',
-      dentroRaio: dentro.length, maisProximo: closest||'—',
-      distMaisProximo: closestDist===Infinity ? null : closestDist
-    });
-  }
-  const comCob = loteResults.filter(r => r.dentroRaio>0);
-  const semCob = loteResults.filter(r => r.dentroRaio===0);
-  let html = `<div class="summary-bar">
-    <div class="summary-item hit"><b>${comCob.length}</b> clientes com cobertura</div>
-    <div class="summary-item miss"><b>${semCob.length}</b> sem cobertura</div>
-    <div class="summary-meta">raio ${raio}km</div>
-  </div>`;
-  if (comCob.length) {
-    html += `<div class="section-sep">Com cobertura — ${comCob.length}</div>`;
-    comCob.forEach(r => { html += `<div class="result-item inside"><div class="result-info"><div class="result-name">${r.cliente}</div><div class="result-addr">${r.endereco} · <span style="color:var(--teal)">${r.dentroRaio} prestador(es)</span> · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)</div></div><div class="dist-badge ok">${r.distMaisProximo}km</div></div>`; });
-  }
-  if (semCob.length) {
-    html += `<div class="section-sep">Sem cobertura — ${semCob.length}</div>`;
-    semCob.forEach(r => { html += `<div class="result-item outside"><div class="result-info"><div class="result-name">${r.cliente}</div><div class="result-addr">${r.endereco}${r.distMaisProximo ? ` · mais próximo: ${r.maisProximo} (${r.distMaisProximo}km)` : ''}</div></div><div class="dist-badge far">sem cobertura</div></div>`; });
-  }
-  html += `<div class="export-row"><button class="btn-export" onclick="exportLote()">Exportar resultado CSV</button></div>`;
-  document.getElementById('results').innerHTML = html;
-  window._loteResults = loteResults; window._lastRaio = raio;
+function flyTo(lat,lon,name){
+  if(!map||!lat||!lon) return;
+  document.getElementById('map-wrap').scrollIntoView({behavior:'smooth',block:'center'});
+  setTimeout(()=>map.flyTo([lat,lon],12,{duration:1}),300);
 }
 
-function exportCSV() {
-  if (!window._lastResults) return;
-  const rows=[['Prestador','Cidade','Distância (km)','Dentro do raio']];
-  window._lastResults.forEach(r=>rows.push([r.name,r.addr,r.dist??'sem dados',r.dist!==null&&r.dist<=window._lastRaio?'Sim':'Não']));
+function exportCSV(){
+  if(!window._lastResults) return;
+  const rows=[['Prestador','Cidade','Distância (km)','Dentro do raio','Nota IQP','Score IQP']];
+  window._lastResults.forEach(r=>rows.push([r.name,r.addr,r.dist??'—',r.dist!==null&&r.dist<=window._lastRaio?'Sim':'Não',r.nota||'sem nota',r.score||'—']));
   downloadCSV(rows,`cobertura_${(window._lastClient||'resultado').replace(/[^a-z0-9]/gi,'_').slice(0,40)}.csv`);
 }
-function exportLote() {
-  if (!window._loteResults) return;
-  const rows=[['Cliente','Endereço','Prestadores no raio','Mais próximo','Distância (km)']];
-  window._loteResults.forEach(r=>rows.push([r.cliente,r.endereco,r.dentroRaio,r.maisProximo,r.distMaisProximo??'—']));
-  downloadCSV(rows,'cobertura_lote.csv');
-}
-function downloadCSV(rows,filename) {
+function downloadCSV(rows,filename){
   const content=rows.map(r=>r.map(c=>`"${String(c).replace(/"/g,'""')}"`).join(',')).join('\n');
   const blob=new Blob(['\uFEFF'+content],{type:'text/csv;charset=utf-8'});
   const a=document.createElement('a');a.href=URL.createObjectURL(blob);a.download=filename;a.click();
